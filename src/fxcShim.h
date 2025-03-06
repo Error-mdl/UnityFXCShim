@@ -359,6 +359,7 @@ D3DDisassemble(LPCVOID pSrcData,
     LPCSTR szComments,
     ID3DBlob** ppDisassembly)
 {
+    asm("");
     return D3DDisassemble_jmp(
         pSrcData,
         SrcDataSize,

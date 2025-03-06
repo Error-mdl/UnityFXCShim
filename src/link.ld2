@@ -4,16 +4,14 @@
    are permitted in any medium without royalty provided the copyright
    notice and this notice are preserved.  */
 OUTPUT_FORMAT(pei-x86-64)
-SEARCH_DIR("=/mingw64/x86_64-w64-mingw32/lib"); SEARCH_DIR("=/mingw64/lib"); SEARCH_DIR("=/usr/local
-/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
+SEARCH_DIR("=/mingw64/x86_64-w64-mingw32/lib"); SEARCH_DIR("=/mingw64/lib"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR(
+"=/lib"); SEARCH_DIR("=/usr/lib");
 SECTIONS
 {
   /* Make the virtual address and file offset synced if the alignment is
      lower than the target page size. */
   . = SIZEOF_HEADERS;
   . = ALIGN(__section_alignment__);
-
-   /*.text __image_base__ + (0x00009000) :*/
   .text  __image_base__ + ( __section_alignment__ < 0x1000 ? . : __section_alignment__ ) :
   {
     KEEP (*(SORT_NONE(.init)))
@@ -64,35 +62,6 @@ SECTIONS
     PROVIDE (etext = .);
      KEEP (*(.gcc_except_table))
   }
-  
-  /*.D3DDisassemble	0x00007180 + __image_base__ : {KEEP(*(.D3DDisassemble ))}*/
-  /*.D3DDisassembleRegion  0x000071c0 + __image_base__ : {KEEP(*(.D3DDisassembleRegion ))}
-  .D3DGetTraceInstructionOffsets  0x00007210 + __image_base__ : {KEEP(*(.D3DGetTraceInstructionOffsets ))}
-  .D3DDisassemble11Trace  0x00007250 + __image_base__ : {KEEP(*(.D3DDisassemble11Trace ))}
-  .D3DReflect  0x00007290 + __image_base__ : {KEEP(*(.D3DReflect ))}
-  .D3DReflectLibrary  0x000073f0 + __image_base__ : {KEEP(*(.D3DReflectLibrary ))}
-  .D3DCreateBlob  0x00007580 + __image_base__ : {KEEP(*(.D3DCreateBlob ))}
-  .D3DCreateLinker  0x000075a0 + __image_base__ : {KEEP(*(.D3DCreateLinker ))}
-  .D3DLoadModule  0x00007630 + __image_base__ : {KEEP(*(.D3DLoadModule ))}
-  .D3DCreateFunctionLinkingGraph  0x00007730 + __image_base__ : {KEEP(*(.D3DCreateFunctionLinkingGraph ))}
-  .D3DDisassemble10Effect  0x00016ec0 + __image_base__ : {KEEP(*(.D3DDisassemble10Effect ))}
-  .D3DReadFileToBlob  0x000ec310 + __image_base__ : {KEEP(*(.D3DReadFileToBlob ))}
-  .D3DWriteBlobToFile  0x000ec530 + __image_base__ : {KEEP(*(.D3DWriteBlobToFile ))}
-  .D3DCompile  0x000ee230 + __image_base__ : {KEEP(*(.D3DCompile ))}
-  .D3DCompile2  0x000ee2b0 + __image_base__ : {KEEP(*(.D3DCompile2 ))}
-  .D3DCompileFromFile  0x000ee3b0 + __image_base__ : {KEEP(*(.D3DCompileFromFile ))}
-  .D3DAssemble  0x000ee530 + __image_base__ : {KEEP(*(.D3DAssemble ))}
-  .D3DPreprocess  0x000ef770 + __image_base__ : {KEEP(*(.D3DPreprocess ))}
-  .D3DGetBlobPart  0x000effd0 + __image_base__ : {KEEP(*(.D3DGetBlobPart ))}
-  .D3DSetBlobPart  0x000f0010 + __image_base__ : {KEEP(*(.D3DSetBlobPart ))}
-  .D3DGetDebugInfo  0x000f05f0 + __image_base__ : {KEEP(*(.D3DGetDebugInfo ))}
-  .D3DGetInputSignatureBlob  0x000f0620 + __image_base__ : {KEEP(*(.D3DGetInputSignatureBlob ))}
-  .D3DGetOutputSignatureBlob  0x000f0650 + __image_base__ : {KEEP(*(.D3DGetOutputSignatureBlob ))}
-  .D3DGetInputAndOutputSignatureBlob  0x000f0680 + __image_base__ : {KEEP(*(.D3DGetInputAndOutputSignatureBlob ))}
-  .D3DStripShader  0x000f06b0 + __image_base__ : {KEEP(*(.D3DStripShader ))}
-  .D3DCompressShaders  0x000f1310 + __image_base__ : {KEEP(*(.D3DCompressShaders ))}*/
-  .D3DDecompressShaders  0x000f2000 + __image_base__ : {KEEP(*(.D3DDecompressShaders ))}
-  
   /* The Cygwin32 library uses a section to avoid copying certain data
      on fork.  This used to be named ".data".  The linker used
      to include this between __data_start__ and __data_end__, but that

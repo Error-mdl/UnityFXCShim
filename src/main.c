@@ -1,36 +1,38 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 
-//#include "libloaderapi.h"
+#include "Windows.h"
 
-//#include "debugapi.h"
+#include "debugapi.h"
+#include <stdio.h>
 
 //#define DBG_PRINT(fnct) OutputDebugStringA("FXC Shim: Called " #fnct)
 #include "fxcShim.h"
 //#include "d3dcompiler.h"
-/*
+
 #define D3DCOMPILER_OLD_DLL_W "D3DCompiler_47_old.dll"
 
 HMODULE libD3dCompiler47;
 
 #include "fxcFuncs.inl"
 
-void AttachOriginalFXC()
+__declspec(dllexport) void AttachOriginalFXC()
 {
     libD3dCompiler47 = LoadLibraryA(D3DCOMPILER_OLD_DLL_W);
     if (libD3dCompiler47)
     {
-        //OutputDebugStringA("FXC Shim: Loading FXC functions from " D3DCOMPILER_OLD_DLL_W);
+        OutputDebugStringA("FXC Shim: Loading FXC functions from " D3DCOMPILER_OLD_DLL_W);
+        printf("FXC Shim: Loading FXC functions from " D3DCOMPILER_OLD_DLL_W);
 
 #define LOAD_FXC_FUNC(fn) p_##fn = (PFN_##fn) GetProcAddress(libD3dCompiler47, #fn); if (p_##fn == NULL) { OutputDebugStringA("Failed to load " #fn); }
         DO_FOR_ALL_FXC(LOAD_FXC_FUNC);
     }
     else
     {
-        //OutputDebugStringA("FXC Shim: Could not load " D3DCOMPILER_OLD_DLL_W "!");
+        OutputDebugStringA("FXC Shim: Could not load " D3DCOMPILER_OLD_DLL_W "!");
     }
 }
 
-BOOL APIENTRY DllMain( HMODULE hModule,
+__attribute__((constructor)) BOOL APIENTRY DllMain(HINSTANCE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
                      )
@@ -51,5 +53,3 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
-
-*/
